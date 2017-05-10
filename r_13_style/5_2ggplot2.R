@@ -112,7 +112,7 @@ p7 <- p1 + ggtitle("Excel 2003  them") +
 p8 <- p1 +  theme_igray() + scale_colour_tableau()
 p9 <- p1 + theme_igray() + scale_colour_tableau("colorblind10")
 # Inverse Gray Theme
-p10 <- p1 + ggtitle("Inverse Gray Theme") + theme_igray()
+p10 <- p1 + ggtitle("Inverse Gray Theme") + theme_igray() #great
 # Highcharts theme
 p11 <- p1 + ggtitle("Highcharts theme") +
   theme_hc(bgcolor = "darkunica") +
