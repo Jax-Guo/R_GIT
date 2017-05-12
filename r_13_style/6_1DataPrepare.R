@@ -1,5 +1,6 @@
 #查看缺失值信息
 install.packages("mice")
+install.packages("VIM")
 library(mice)
 library(VIM)
 data(sleep,package = "VIM")
@@ -30,7 +31,7 @@ distances <- sqrt(rowSums((iris1 - centers)^2))
 outliers <- order(distances,decreasing = T)[1:5]
 print(iris1[outliers,])
 plot(iris1[,c("Sepal.Length","Sepal.Width")],pch="o",
-     col=kmeans.result$centers,cex=0.3)
+     col=kmeans.result$cluster,cex=0.3)
 # 画出类中心
 points(kmeans.result$centers[,c("Sepal.Length","Sepal.Width")],col=1:3,
        pch=8,cex=1.5)
