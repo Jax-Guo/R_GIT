@@ -51,5 +51,6 @@ x<-data.table(id=1:6,
               name=c("wang","zhang","li","chen","zhao","song"),
               shuxue=c(89,85,68,79,96,53),
               yuwen=c(77,68,86,87,92,63))
-x1 <- melt(x,id=c("id","name"))
-x2 <- dcast(x1,id+name~variable)        
+x1 <- melt(x,id=c("id","name"),variable.name = "test")
+x2 <- dcast(x1,id+name~test)        
+x3 <- dcast(x1,test~id+name)
