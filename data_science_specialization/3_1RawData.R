@@ -44,7 +44,9 @@ DT$a
 require(data.table)
 names(ChickWeight) <- tolower(names(ChickWeight))
 DT <- melt(as.data.table(ChickWeight), id=2:4)
-dcast(DT, time ~ variable, fun=mean)
+DT <- DT[,id:=1:nrow(DT)]
+dcast(DT, id+time+chick+diet~ variable)
+#与下面例子的区别是下面的例子中id是各行都不相同的，而DT中diet与weight则是多对多
 dcast(DT, diet ~ variable, fun=mean)
 
 x<-data.table(id=1:6,

@@ -31,3 +31,6 @@ last_time <- ymd("2008-June-17")
 last_time <- mdy("March 12, 2008")
 how_long <- interval(last_time,arrive)
 as.period(how_long)
+
+?Sys.timezone
+julian(now())
