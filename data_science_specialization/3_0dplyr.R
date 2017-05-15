@@ -1,3 +1,4 @@
+library(dplyr)
 iris <- tbl_df(iris) 
 select(iris, starts_with("Petal"))
 select(iris, ends_with("Width"))
@@ -31,12 +32,6 @@ select(iris, Species, everything())
 # * rename() keeps all variables
 rename(iris, petal_length = Petal.Length)
 
-# Programming with select ---------------------------------------------------
-select_(iris, ~Petal.Length)
-select_(iris, "Petal.Length")
-select_(iris, lazyeval::interp(~matches(x), x = ".t."))
-select_(iris, quote(-Petal.Length), quote(-Petal.Width))
-select_(iris, .dots = list(quote(-Petal.Length), quote(-Petal.Width)))
 
 scramble <- function(x) x[sample(nrow(x)), sample(ncol(x))]
 
