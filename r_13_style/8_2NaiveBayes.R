@@ -1,3 +1,42 @@
+# 加载PimaIndiansDiabetes2数据集
+data(PimaIndiansDiabetes2,package = "mlbench")
+# 查看数据结构
+str(PimaIndiansDiabetes2)
+# 对数据缺失模式进行探索
+library(VIM)
+library(mice)
+md.pattern(PimaIndiansDiabetes2)
+aggr(PimaIndiansDiabetes2,prop=FALSE,number=TRUE)
+# 对缺失值使用袋装方法进行插补
+library(caret)
+preproc <- preProcess(PimaIndiansDiabetes2[,-9],method = "bagImpute")
+data <- predict(preproc,PimaIndiansDiabetes2[,-9])
+# 增加diabetes变量
+data$diabetes <- PimaIndiansDiabetes2[,9]
+aggr(data,prop=FALSE,number=TRUE)
+
+# 数据分区：按照diabetes进行等比例抽样，75%的数据作为训练集训练模型，25%的数据作为测试集用来验证模型
+library(caret)
+# 构建训练集的下标集
+index <- createDataPartition(data$diabetes,times = 1,p=0.75,list=FALSE)
+# 构建训练集和测试集
+train <- data[index,]
+test <- data[-index,]
+prop.table(table(data$diabetes))
+prop.table(table(train$diabetes))
+prop.table(table(test$diabetes))
+
+# 利用e1071包中的naiveBayes函数建立朴素贝叶斯模型
+library(e1071)
+model <- naiveBayes(diabetes~.,data=train)
+# 利用predict函数对测试集数据test进行分类预测
+pred <- predict(model,test)
+# 构建混淆矩阵，查看错误率
+(a <- table(test$diabetes,pred))
+(b=paste0(round((sum(a)-sum(diag(a)))*100/sum(a),2),"%"))
+
+
+
 # 导入数据
 sms_raw <- read.csv("english_big.csv")
 str(sms_raw)
